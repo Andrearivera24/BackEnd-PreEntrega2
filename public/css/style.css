@@ -50,3 +50,41 @@
     color: #5015bd; 
    
 }
+
+section {
+	margin: 100px;
+}
+
+.bg-light {
+	background: #fff;
+	box-shadow: var(--shadow);
+}
+
+.login-section {
+	margin: 50px 20px;
+	border-radius: var(--radius);
+}
+
+.navbar {
+	margin: 10px;
+	border-radius: var(--radius);
+}
+
+.form-control {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border-radius: var(--radius);
+	border: 0px;
+	border-bottom: 1px solid var(--p-color);
+}
+
+.btn-primary {
+	background: var(--gradient);
+	border-radius: var(--radius);
+	border: 0;
+}
+
+.btn-outline-danger {
+	border-radius: var(--radius);
+}
+

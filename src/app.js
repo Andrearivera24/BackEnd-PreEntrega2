@@ -3,13 +3,16 @@ import express from 'express';
 import handlebars from 'express-handlebars';
 import mongoose from 'mongoose';
 import { Server } from 'socket.io';
-
+import cookieParser from 'cookie-parser';
+import session from 'express-session';
+import MongoStore from 'connect-mongo';
 
 
 //---- Rutas
 import productRouter from './routers/products.router.js';
 import cartRouter from './routers/carts.router.js';
 import viewsRouter from './routers/views.router.js';
+import userRouter from './routers/user.router.js';
 
 const app = express();
 
@@ -17,6 +20,20 @@ const app = express();
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(cookieParser('B2zdY3B$pHmxW%'));
+
+//uso sesiones
+app.use(session({
+
+    store: MongoStore.create({
+        mongoUrl:'mongodb+srv://AndreaRivera24:acrs241097@cluster0.ggiy5uv.mongodb.net/?retryWrites=true&w=majority',
+        mongoOptions: {useNewUrlParser:true},
+        ttl: 6000,
+    }),
+    secret: 'B2zdY3B$pHmxW%',
+    resave: true,
+    saveUninitialized: true,
+}));
 
 
 //seteo estructura de handlebars
@@ -27,6 +44,7 @@ app.set('view engine', 'handlebars');
 // Uso las rutas.
 app.use ('/api/carts', cartRouter);
 app.use('/api/products', productRouter);
+app.use('/api/users', userRouter); //método post del formulario
 app.use('/', viewsRouter); 
 
 //Estructura de handlebars
@@ -36,6 +54,8 @@ app.set("view engine", "handlebars");
 
 //Conecto el servidor con mongoose
 mongoose.connect('mongodb+srv://AndreaRivera24:acrs241097@cluster0.ggiy5uv.mongodb.net/?retryWrites=true&w=majority');
+
+
 
 //Inicializo el servidor
 
